@@ -12,6 +12,5 @@ class Pollard {
 public:
     static std::optional<cpp_int> findFactor(const cpp_int &number, const cpp_int &B = 1000000);
 };
-
 } // lpn
 

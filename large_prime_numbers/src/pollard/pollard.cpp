@@ -17,10 +17,9 @@ std::optional<bmp::cpp_int> Pollard::findFactor(const bmp::cpp_int &number, cons
         a = power_mod(a, i, number);
         g = gcd(a - 1, number);
         if (g > 1 && g < number) {
-            return g; //нашли ненулевой делитель
+            return g; //нашли
         }
     }
     return std::nullopt;  //ничего не нашли
 }
-
 } // lpn

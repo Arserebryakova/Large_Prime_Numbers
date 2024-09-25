@@ -34,16 +34,16 @@ include_directories(src)
 add_executable(lpn
         #src/main.cpp
 
-        src/misc/bin_mat.cpp
-        src/misc/factor_span.cpp
-        src/misc/legendre_symbol.cpp
+        #src/misc/bin_mat.cpp
+        #src/misc/factor_span.cpp
+        #src/misc/legendre_symbol.cpp
 
         src/trial_division/trial_division.cpp
         src/sieve_of_eratosthenes/sieve_of_eratosthenes.cpp
         src/fermat/fermat.cpp
         src/miller-rabin/miller-rabin.cpp
         src/pollard/pollard.cpp
-        src/dixon/dixon.cpp
+        #src/dixon/dixon.cpp
 )
 target_link_libraries(lpn PRIVATE Boost::multiprecision)
 target_compile_features(lpn PRIVATE cxx_std_20)
@@ -58,10 +58,12 @@ add_executable(lpn_tests
         src/miller-rabin/miller-rabin.cpp
         src/pollard/pollard.cpp
 
+
         src/utils/big_integer_arithmetics.cpp
 
+        src/tests/format.cpp
         src/tests/test_time.cpp
-        src/tests/test_memory.cpp
+        #src/tests/test_memory.cpp
 )
 add_test(NAME lpn_tests COMMAND lpn_tests)
 target_link_libraries(lpn_tests PRIVATE Boost::multiprecision gtest gtest_main)
