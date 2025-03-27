@@ -10,6 +10,7 @@
 #include <trial_division/trial_division.h>
 #include <miller-rabin/miller-rabin.h>
 #include <pollard/pollard.h>
+#include "dixon/dixon.h"
 
 using namespace boost::multiprecision;
 
@@ -18,6 +19,64 @@ protected:
     void SetUp() override {
     }
 };
+
+TEST_F(FactorizationTests, DixonFactorizationPerformance) {
+    std::multimap<int, cpp_int> input_data{
+            {1,  bmp::cpp_int{"2"}},
+            {1,  bmp::cpp_int{"4"}},
+            {1,  bmp::cpp_int{"7"}},
+            {2,  bmp::cpp_int{"11"}},
+            {2,  bmp::cpp_int{"12"}},
+            {2,  bmp::cpp_int{"13"}},
+            {2,  bmp::cpp_int{"14"}},
+            {2,  bmp::cpp_int{"15"}},
+            {2,  bmp::cpp_int{"16"}},
+            {2,  bmp::cpp_int{"17"}},
+            {2,  bmp::cpp_int{"18"}},
+            {2,  bmp::cpp_int{"19"}},
+            {2,  bmp::cpp_int{"20"}},
+            {2,  bmp::cpp_int{"21"}},
+            {3,  bmp::cpp_int{"110"}},
+            {3,  bmp::cpp_int{"573"}},
+            {3,  bmp::cpp_int{"761"}},
+            {3,  bmp::cpp_int{"999"}},
+            {4,  bmp::cpp_int{"2679"}},
+            {4,  bmp::cpp_int{"7462"}},
+            {4,  bmp::cpp_int{"9651"}},
+            {5,  bmp::cpp_int{"16457"}},
+            {5,  bmp::cpp_int{"76483"}},
+            {5,  bmp::cpp_int{"84379"}},
+            {6,  bmp::cpp_int{"108373"}},
+            {6,  bmp::cpp_int{"356475"}},
+            {6,  bmp::cpp_int{"783759"}},
+            {6,  bmp::cpp_int{"843795"}},
+            {7,  bmp::cpp_int{"1083733"}},
+            {7,  bmp::cpp_int{"3564735"}},
+            {7,  bmp::cpp_int{"7837539"}},
+            {7,  bmp::cpp_int{"8437935"}},
+            {8,  bmp::cpp_int{"35647435"}},
+            {8,  bmp::cpp_int{"78374539"}},
+            {8,  bmp::cpp_int{"84437935"}},
+            {9,  bmp::cpp_int{"858599503"}},//простое
+            {9,  bmp::cpp_int{"982451653"}},//простое
+            {10, bmp::cpp_int{"1000000003"}},//составное
+            {11, bmp::cpp_int{"10000000047"}},//составное
+    };
+    std::ofstream file(buildFilename("Dixon"));
+    file << "Digits,N,factor,duration" << std::endl;
+    for (const auto &[digits, number]: input_data) {
+        auto start = std::chrono::high_resolution_clock::now();
+        auto factor = lpn::Dixon::findFactor(number);
+        auto end = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double> duration = end - start;
+        file << digits << "," << number << "," << (factor.has_value() ? factor.value() : -1)
+             << "," << duration.count() << std::endl;
+        std::cout << "Digits: " << digits << " N: " << number << " factor: "
+                  << (factor.has_value() ? factor.value() : -1) << " duration: " << duration.count() << " seconds.\n";
+    }
+    //ASSERT_NE(factor, N);  //проверка успешности факторизации
+}
 
 TEST_F(FactorizationTests, FermatFactorizationPerformance) {
     std::multimap<int, cpp_int> input_data{
