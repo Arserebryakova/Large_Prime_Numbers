@@ -32,7 +32,7 @@ include_directories(src)
 
 # Example executable
 add_executable(lpn
-        #src/main.cpp
+        src/main.cpp
 
         #src/misc/bin_mat.cpp
         #src/misc/factor_span.cpp
@@ -43,7 +43,9 @@ add_executable(lpn
         src/fermat/fermat.cpp
         src/miller-rabin/miller-rabin.cpp
         src/pollard/pollard.cpp
-        #src/dixon/dixon.cpp
+        src/utils/big_integer_arithmetics.cpp
+        src/main.cpp
+        src/dixon/dixon.cpp
 )
 target_link_libraries(lpn PRIVATE Boost::multiprecision)
 target_compile_features(lpn PRIVATE cxx_std_20)
@@ -61,6 +63,7 @@ add_executable(lpn_tests
 
         src/utils/big_integer_arithmetics.cpp
 
+        src/dixon/dixon.cpp
         src/tests/format.cpp
         src/tests/test_time.cpp
         #src/tests/test_memory.cpp
