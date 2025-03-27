@@ -21,7 +21,7 @@ inline double Time() {
 }
 
 int main() {
-
-    }
+    std::optional a = lpn::Dixon::findFactor(123456);
+    std::cout << a->convert_to<int32_t>();
     return 0;
 }
