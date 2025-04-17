@@ -8,13 +8,11 @@ std::optional<bmp::cpp_int> Fermat::findFactor(const bmp::cpp_int &number) {
     if (number % cpp_int(2) == cpp_int (0)) {
         return bmp::cpp_int(2);
     }
-
     bmp::cpp_int a = sqrt(number);
     if (a * a < number) {
         a += 1; //oкругляем вверх
     }
     bmp::cpp_int b_squared, b;
-
     while (a < number) {
 
         b_squared = a * a - number;

@@ -11,7 +11,7 @@ message(STATUS "Downloading and extracting boost library sources. This will take
 set(FETCHCONTENT_QUIET FALSE)
 FetchContent_Declare(
         Boost
-        URL https://github.com/boostorg/boost/releases/download/boost-1.84.0/boost-1.84.0.7z # downloading a zip release speeds up the download
+            URL https://github.com/boostorg/boost/releases/download/boost-1.84.0/boost-1.84.0.7z # downloading a zip release speeds up the download
         USES_TERMINAL_DOWNLOAD TRUE
         GIT_PROGRESS TRUE
         DOWNLOAD_NO_EXTRACT FALSE
@@ -34,10 +34,6 @@ include_directories(src)
 add_executable(lpn
         src/main.cpp
 
-        #src/misc/bin_mat.cpp
-        #src/misc/factor_span.cpp
-        #src/misc/legendre_symbol.cpp
-
         src/trial_division/trial_division.cpp
         src/sieve_of_eratosthenes/sieve_of_eratosthenes.cpp
         src/fermat/fermat.cpp
@@ -59,14 +55,18 @@ add_executable(lpn_tests
         src/fermat/fermat.cpp
         src/miller-rabin/miller-rabin.cpp
         src/pollard/pollard.cpp
-
+        src/dixon/dixon.cpp
 
         src/utils/big_integer_arithmetics.cpp
 
-        src/dixon/dixon.cpp
         src/tests/format.cpp
-        src/tests/test_time.cpp
-        #src/tests/test_memory.cpp
+        src/tests/main_tests.cpp
+        src/tests/test_time_trial_division.cpp
+        src/tests/test_time_dixon.cpp
+        src/tests/test_time_miller-rabin.cpp
+        src/tests/test_time_pollard.cpp
+        src/tests/test_time_sieve.cpp
+        src/tests/test_time_fermat.cpp
 )
 add_test(NAME lpn_tests COMMAND lpn_tests)
 target_link_libraries(lpn_tests PRIVATE Boost::multiprecision gtest gtest_main)

@@ -1,7 +1,12 @@
+#include <boost/multiprecision/cpp_int.hpp>
 #include "format.h"
 #include <iomanip>
 #include <ctime>
 #include <sstream>
+#include <vector>
+#include <fstream>
+
+namespace bmp = boost::multiprecision;
 
 
 std::string getCurrentTimestamp() {
@@ -17,3 +22,12 @@ std::string buildFilename(const std::string& prefix) {
     return "../test_results/" + prefix + "_" + getCurrentTimestamp() + ".csv";
 }
 
+std::vector<bmp::cpp_int> readNumbers(const std::string& filename){
+    std::ifstream inputFile("../src/tests/static/"+filename+".txt");
+    std::string numberStr;
+    std::vector<bmp::cpp_int> numbers;
+    while (inputFile >> numberStr) {
+        numbers.emplace_back(numberStr);
+    }
+    return numbers;
+}

@@ -1,8 +1,7 @@
 #include "miller-rabin.h"
 #include <utils/big_integer_arithmetics.h>
-
 #include <boost/random.hpp>
-#include <optional>
+#include <random>
 
 
 namespace bmp = boost::multiprecision;
@@ -31,24 +30,20 @@ bool miller_rabin_test(const bmp::cpp_int &d, const bmp::cpp_int &n, const bmp::
 
 std::optional<bmp::cpp_int> MillerRabin::findFactor(const bmp::cpp_int &number, int iterations) {
     assert(number > 1);
-
     if (number <= 3) {
         return std::nullopt;
     }
     if (number % 2 == 0) {
         return bmp::cpp_int(2);
     }
-
     //вычисляем такое d что n - 1 = d * 2^r
     bmp::cpp_int d = number - 1;
     while (d % 2 == 0) {
         d /= 2;
     }
-
     std::random_device rd;
     std::mt19937 gen(rd());
     boost::random::uniform_int_distribution<bmp::cpp_int> dis(bmp::cpp_int(2), number - 2);    //генерим рандомные числа
-
     for (int i = 0; i < iterations; ++i) {
         bmp::cpp_int a = dis(gen);
         if (!miller_rabin_test(d, number, a)) {

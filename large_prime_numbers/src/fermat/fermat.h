@@ -11,5 +11,3 @@ public:
     static std::optional<cpp_int> findFactor(const cpp_int &number);
 };
 } // lpn
-
-

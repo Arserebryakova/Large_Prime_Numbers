@@ -12,13 +12,16 @@
 #include <pollard/pollard.h>
 #include "dixon/dixon.h"
 
-using namespace boost::multiprecision;
+namespace{
+    using namespace boost::multiprecision;
 
-class FactorizationTests : public ::testing::Test {
-protected:
-    void SetUp() override {
-    }
-};
+    class FactorizationTests : public ::testing::Test {
+        protected:
+            void SetUp() override {}
+    };
+}
+
+
 
 TEST_F(FactorizationTests, DixonFactorizationPerformance) {
     std::multimap<int, cpp_int> input_data{
