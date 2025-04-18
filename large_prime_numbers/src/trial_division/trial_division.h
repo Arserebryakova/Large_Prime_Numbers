@@ -1,13 +1,11 @@
 #pragma once
 
-#include <boost/multiprecision/cpp_int.hpp>
+#include "utils/LongInt.h"
 #include <optional>
 
 namespace lpn {
 class TrialDivision {
-    using cpp_int = boost::multiprecision::cpp_int;
-
 public:
-    static std::optional<cpp_int> findFactor(const cpp_int &number);
+    static std::optional<LongInt> findFactor(const LongInt &number);
 };
 } // lpn

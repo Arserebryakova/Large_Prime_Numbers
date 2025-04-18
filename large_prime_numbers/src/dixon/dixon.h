@@ -1,14 +1,11 @@
 #pragma once
 
-
+#include "utils/LongInt.h"
 #include <optional>
-#include <boost/multiprecision/cpp_int.hpp>
-
-namespace bmp = boost::multiprecision;
 
 namespace lpn {
-    class Dixon {
-    public:
-        static std::optional<bmp::cpp_int> findFactor(const bmp::cpp_int &number);
-    };
+class Dixon {
+public:
+    static std::optional<LongInt> findFactor(const LongInt &number);
+};
 }

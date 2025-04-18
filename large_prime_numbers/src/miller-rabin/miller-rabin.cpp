@@ -4,17 +4,15 @@
 #include <random>
 
 
-namespace bmp = boost::multiprecision;
-
 namespace lpn {
 //вспомогательная функция, возвращает false, если составное
-bool miller_rabin_test(const bmp::cpp_int &d, const bmp::cpp_int &n, const bmp::cpp_int &a) {
-    bmp::cpp_int x = power_mod(a, d, n);  // a^d % n
+bool miller_rabin_test(const LongInt &d, const LongInt &n, const LongInt &a) {
+    LongInt x = power_mod(a, d, n);  // a^d % n
     if (x == 1 || x == n - 1) {
         return true;
     }
     //повторяем возведение в квадрат до тех пор, пока d не станет n-1
-    bmp::cpp_int d_copy = d;
+    LongInt d_copy = d;
     while (d_copy != n - 1) {
         x = (x * x) % n;
         d_copy *= 2;
@@ -28,24 +26,24 @@ bool miller_rabin_test(const bmp::cpp_int &d, const bmp::cpp_int &n, const bmp::
     return false;
 }
 
-std::optional<bmp::cpp_int> MillerRabin::findFactor(const bmp::cpp_int &number, int iterations) {
+std::optional<LongInt> MillerRabin::findFactor(const LongInt &number, int iterations) {
     assert(number > 1);
     if (number <= 3) {
         return std::nullopt;
     }
     if (number % 2 == 0) {
-        return bmp::cpp_int(2);
+        return LongInt (2);
     }
     //вычисляем такое d что n - 1 = d * 2^r
-    bmp::cpp_int d = number - 1;
+    LongInt d = number - 1;
     while (d % 2 == 0) {
         d /= 2;
     }
     std::random_device rd;
     std::mt19937 gen(rd());
-    boost::random::uniform_int_distribution<bmp::cpp_int> dis(bmp::cpp_int(2), number - 2);    //генерим рандомные числа
+    boost::random::uniform_int_distribution<LongInt> dis(LongInt (2), number - 2);    //генерим рандомные числа
     for (int i = 0; i < iterations; ++i) {
-        bmp::cpp_int a = dis(gen);
+        LongInt a = dis(gen);
         if (!miller_rabin_test(d, number, a)) {
             return a;  //если тест не прошёл возвращаем основание a
         }
