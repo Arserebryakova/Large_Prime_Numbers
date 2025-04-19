@@ -2,27 +2,18 @@
 #include <chrono>
 #include <map>
 #include <fstream>
-#include <gtest/gtest.h>
 #include <tests/format.h>
+#include <tests/test_context.h>
 
 #include <dixon/dixon.h>
 
-
-namespace bmp = boost::multiprecision;
-
-
-class FactorizationTests : public ::testing::Test {
-protected:
-    void SetUp() override {
-    }
-};
-
+namespace test_field {
 TEST_F(FactorizationTests, DixonFactorizationPerformance) {
     std::ofstream file(buildFilename("Dixon"));
     file << "Attempt,number,factor,duration" << std::endl;
     auto numbers = readNumbers("dixon_input");
     int counter = 0;
-    for (const auto& number : numbers) {
+    for (const auto &number: numbers) {
         for (int i = 1; i < 21; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             auto factor = lpn::Dixon::findFactor(number);
@@ -40,4 +31,5 @@ TEST_F(FactorizationTests, DixonFactorizationPerformance) {
             ++counter;
         }
     }
+}
 }

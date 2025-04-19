@@ -5,7 +5,7 @@
 
 namespace lpn {
 class Fermat {
-public:
+  public:
     static std::optional<LongInt> findFactor(const LongInt &number);
 };
-} // lpn
+}

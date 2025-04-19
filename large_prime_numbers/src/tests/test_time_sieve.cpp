@@ -2,21 +2,14 @@
 #include <chrono>
 #include <map>
 #include <fstream>
-#include <gtest/gtest.h>
 #include <tests/format.h>
+#include <tests/test_context.h>
 
 #include <sieve_of_eratosthenes/sieve_of_eratosthenes.h>
 
-
 namespace bmp = boost::multiprecision;
 
-
-class FactorizationTests : public ::testing::Test {
-protected:
-    void SetUp() override {
-    }
-};
-
+namespace test_field {
 TEST_F(FactorizationTests, SievePerformance) {
     std::ofstream file(buildFilename("Sieve_of_Eratosthenes"));
     file << "Numbers,duration" << std::endl;
@@ -27,8 +20,9 @@ TEST_F(FactorizationTests, SievePerformance) {
     auto end = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> duration = end - start;
-    for (auto x : numbers) {
+    for (auto x: numbers) {
         file << x << std::endl;
     }
     file << duration.count() << std::endl;
+}
 }

@@ -1,6 +1,5 @@
 #include "big_integer_arithmetics.h"
 
-
 namespace lpn {
 LongInt power_mod(LongInt base, LongInt exp, const LongInt &mod) {
     LongInt result = 1;

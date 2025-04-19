@@ -2,27 +2,18 @@
 #include <chrono>
 #include <map>
 #include <fstream>
-#include <gtest/gtest.h>
 #include <tests/format.h>
+#include <tests/test_context.h>
 
 #include <fermat/fermat.h>
 
-
-namespace bmp = boost::multiprecision;
-
-
-class FactorizationTests : public ::testing::Test {
-protected:
-    void SetUp() override {
-    }
-};
-
+namespace test_field {
 TEST_F(FactorizationTests, FermatFactorizationPerformance) {
     std::ofstream file(buildFilename("Fermat"));
     file << "Attempt,number,factor,duration" << std::endl;
     auto numbers = readNumbers("fermat_input");
     int counter = 0;
-    for (const auto& number : numbers) {
+    for (const auto &number: numbers) {
         for (int i = 1; i < 21; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             auto factor = lpn::Fermat::findFactor(number);
@@ -40,5 +31,5 @@ TEST_F(FactorizationTests, FermatFactorizationPerformance) {
             ++counter;
         }
     }
-    //ASSERT_NE(factor, N);  //проверка успешности факторизации
+}
 }

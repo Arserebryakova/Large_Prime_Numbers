@@ -1,17 +1,16 @@
 #include "miller-rabin.h"
 #include <utils/big_integer_arithmetics.h>
 #include <boost/random.hpp>
-#include <random>
+#include <utils/random.h>
 
 
 namespace lpn {
 //вспомогательная функция, возвращает false, если составное
-bool miller_rabin_test(const LongInt &d, const LongInt &n, const LongInt &a) {
-    LongInt x = power_mod(a, d, n);  // a^d % n
+bool miller_rabin_prime_check(const LongInt &d, const LongInt &n, const LongInt &a) {
+    LongInt x = power_mod(a, d, n);
     if (x == 1 || x == n - 1) {
         return true;
     }
-    //повторяем возведение в квадрат до тех пор, пока d не станет n-1
     LongInt d_copy = d;
     while (d_copy != n - 1) {
         x = (x * x) % n;
@@ -26,7 +25,15 @@ bool miller_rabin_test(const LongInt &d, const LongInt &n, const LongInt &a) {
     return false;
 }
 
-std::optional<LongInt> MillerRabin::findFactor(const LongInt &number, int iterations) {
+LongInt factorOut2(LongInt d) {
+    d -= 1;
+    while (d % 2 == 0) {
+        d /= 2;
+    }
+    return d;
+}
+
+std::optional<LongInt> MillerRabin::findFactor(const LongInt &number, int iterations, Random &rnd) {
     assert(number > 1);
     if (number <= 3) {
         return std::nullopt;
@@ -34,21 +41,13 @@ std::optional<LongInt> MillerRabin::findFactor(const LongInt &number, int iterat
     if (number % 2 == 0) {
         return LongInt (2);
     }
-    //вычисляем такое d что n - 1 = d * 2^r
-    LongInt d = number - 1;
-    while (d % 2 == 0) {
-        d /= 2;
-    }
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    boost::random::uniform_int_distribution<LongInt> dis(LongInt (2), number - 2);    //генерим рандомные числа
+    LongInt d = factorOut2(number);
+    LongInt a = rnd.uniform(2, 10000);
     for (int i = 0; i < iterations; ++i) {
-        LongInt a = dis(gen);
-        if (!miller_rabin_test(d, number, a)) {
-            return a;  //если тест не прошёл возвращаем основание a
+        if (!miller_rabin_prime_check(d, number, a)) {
+            return a;
         }
-        //TODO: поправить на вовращение делителя если получится
     }
-    return std::nullopt;  //тесты пройдены значит число вероятно простое
+    return std::nullopt;
 }
-}// lpn
+}

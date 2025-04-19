@@ -2,26 +2,18 @@
 #include <chrono>
 #include <map>
 #include <fstream>
-#include <gtest/gtest.h>
 #include <tests/format.h>
+#include <tests/test_context.h>
 
 #include <trial_division/trial_division.h>
 
-
-namespace bmp = boost::multiprecision;
-
-class FactorizationTests : public ::testing::Test {
-protected:
-    void SetUp() override {
-    }
-};
-
+namespace test_field {
 TEST_F(FactorizationTests, TrialDivisionPerformance) {
     std::ofstream file(buildFilename("Trial_division"));
     file << "Attempt,number,factor,duration" << std::endl;
     auto numbers = readNumbers("trial_division_uint_64");
     int counter = 0;
-    for (const auto& number : numbers) {
+    for (const auto &number: numbers) {
         for (int i = 1; i < 21; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             auto factor = lpn::TrialDivision::findFactor(number);
@@ -39,4 +31,5 @@ TEST_F(FactorizationTests, TrialDivisionPerformance) {
             ++counter;*/
         }
     }
+}
 }

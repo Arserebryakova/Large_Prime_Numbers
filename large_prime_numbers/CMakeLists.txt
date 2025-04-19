@@ -40,6 +40,7 @@ add_executable(lpn
         src/miller-rabin/miller-rabin.cpp
         src/pollard/pollard.cpp
         src/utils/big_integer_arithmetics.cpp
+        src/utils/random.cpp
         src/main.cpp
         src/dixon/dixon.cpp
 )

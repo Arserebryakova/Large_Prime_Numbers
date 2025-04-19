@@ -5,7 +5,8 @@
 
 namespace lpn {
 class Dixon {
-public:
+  public:
+    // функция находит множитель числа n с помощью алгоритма Диксона
     static std::optional<LongInt> findFactor(const LongInt &number);
 };
 }
