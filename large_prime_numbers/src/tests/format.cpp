@@ -4,6 +4,7 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include <filesystem>
 
 namespace {
 std::string getCurrentTimestamp() {
@@ -17,8 +18,12 @@ std::string getCurrentTimestamp() {
 }
 
 namespace test_field {
-std::string buildFilename(const std::string &prefix) {
-    return "../test_results/" + prefix + "_" + getCurrentTimestamp() + ".csv";
+std::filesystem::path buildFilename(const std::string &prefix) {
+    namespace fs = std::filesystem;
+    fs::path dir = fs::path("..") / "test_results";
+    std::string filename = prefix + "_" + getCurrentTimestamp() + ".csv";
+    return dir / filename;
+
 }
 
 std::vector<lpn::LongInt> readNumbers(const std::string &filename) {

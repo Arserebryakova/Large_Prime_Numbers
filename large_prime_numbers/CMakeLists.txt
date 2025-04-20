@@ -43,8 +43,18 @@ add_executable(lpn
         src/utils/random.cpp
         src/main.cpp
         src/dixon/dixon.cpp
-)
-target_link_libraries(lpn PRIVATE Boost::multiprecision)
+        src/utils/Except.cpp
+        src/tests/format.cpp
+        src/tests/test_time_trial_division.cpp
+        src/tests/test_time_dixon.cpp
+        src/tests/test_time_miller-rabin.cpp
+        src/tests/test_time_pollard.cpp
+        src/tests/test_time_sieve.cpp
+        src/tests/test_time_fermat.cpp
+        )
+target_link_libraries(lpn PRIVATE Boost::multiprecision
+        gtest
+        gtest_main)
 target_compile_features(lpn PRIVATE cxx_std_20)
 
 
@@ -57,7 +67,9 @@ add_executable(lpn_tests
         src/miller-rabin/miller-rabin.cpp
         src/pollard/pollard.cpp
         src/dixon/dixon.cpp
-
+        src/utils/random.cpp
+        src/dixon/dixon.cpp
+        src/utils/Except.cpp
         src/utils/big_integer_arithmetics.cpp
 
         src/tests/format.cpp

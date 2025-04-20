@@ -32,7 +32,7 @@ namespace lpn {
 
     std::optional<std::vector<LongInt>> SieveOfEratosthenes::generatePrimes(const LongInt &n) {
         assert(n > 1);
-        LongInt limit = static_cast<LongInt>(std::floor(static_cast<double>(bmp::sqrt(n)))) + 1;
+        LongInt limit = static_cast<LongInt>(bmp::sqrt(n)) + 1;
         std::vector<LongInt> base_primes = simple_sieve(limit);
         const LongInt SEGMENT_SIZE = 1'000'000;
         std::vector<LongInt> primes;

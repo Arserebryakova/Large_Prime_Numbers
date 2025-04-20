@@ -20,11 +20,11 @@ TEST_F(FactorizationTests, MillerRabinTestPerformance) {
             auto end = std::chrono::high_resolution_clock::now();
 
             std::chrono::duration<double> duration = end - start;
-            file << i << "," << number << "," << (factor.has_value() ? factor.value() : -1)
+            file << i << "," << number << "," << (factor.number.has_value() ? factor.number.value() : -1)
                  << "," << duration.count() << std::endl;
             if (counter > 1000) {
                 std::cout << "Attempt N: " << i << " N: " << number << " factor: "
-                          << (factor.has_value() ? factor.value() : -1) << " duration: " << duration.count()
+                          << (factor.number.has_value() ? factor.number.value() : -1) << " duration: " << duration.count()
                           << " seconds.\n";
                 counter = 0;
             }

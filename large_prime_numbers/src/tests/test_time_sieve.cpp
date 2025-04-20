@@ -20,7 +20,7 @@ TEST_F(FactorizationTests, SievePerformance) {
     auto end = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> duration = end - start;
-    for (auto x: numbers) {
+    for (auto x: *numbers) {
         file << x << std::endl;
     }
     file << duration.count() << std::endl;

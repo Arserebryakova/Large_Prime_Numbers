@@ -1,0 +1,4 @@
+
+namespace except {
+void react();
+}

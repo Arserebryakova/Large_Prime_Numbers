@@ -6,6 +6,6 @@
 namespace lpn {
 class Pollard {
   public:
-    static std::optional<LongInt> findFactor(const LongInt &number, const LongInt &B = 100000);
+    static std::optional<LongInt> findFactor(const LongInt &number, const LongInt &b = 100000);
 };
 }

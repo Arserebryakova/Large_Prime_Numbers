@@ -2,7 +2,7 @@
 #include <utils/big_integer_arithmetics.h>
 
 namespace lpn {
-std::optional<LongInt> Pollard::findFactor(const LongInt &number, const LongInt &B) {
+std::optional<LongInt> Pollard::findFactor(const LongInt &number, const LongInt &b) {
     assert(number > 1);
     if (number == 2) {
         return std::nullopt;
@@ -11,7 +11,7 @@ std::optional<LongInt> Pollard::findFactor(const LongInt &number, const LongInt 
         return LongInt(2);
     }
     LongInt a = 2;
-    for (LongInt i = 2; i <= B; ++i) {
+    for (LongInt i = 2; i <= b; ++i) {
         a = power_mod(a, i, number);
         LongInt g = gcd(a - 1, number);
         if (g > 1 && g < number) {
