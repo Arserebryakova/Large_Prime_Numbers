@@ -1,28 +1,24 @@
-#include <boost/multiprecision/cpp_int.hpp>
 #include <chrono>
-#include <map>
 #include <fstream>
 #include <tests/format.h>
 #include <tests/test_context.h>
-
 #include <sieve_of_eratosthenes/sieve_of_eratosthenes.h>
 
-namespace bmp = boost::multiprecision;
-
 namespace test_field {
+using lpn::LongInt;
+using namespace std::chrono;
+
 TEST_F(FactorizationTests, SievePerformance) {
     std::ofstream file(buildFilename("Sieve_of_Eratosthenes"));
-    file << "Numbers,duration" << std::endl;
-
-    auto limit = bmp::cpp_int("4294967296");
-    auto start = std::chrono::high_resolution_clock::now();
-    auto numbers = lpn::SieveOfEratosthenes::generatePrimes(limit);
-    auto end = std::chrono::high_resolution_clock::now();
-
-    std::chrono::duration<double> duration = end - start;
-    for (auto x: *numbers) {
-        file << x << std::endl;
+    file << "Numbers" << '\n';
+    auto limit = LongInt("234567");
+    auto start = steady_clock::now();
+    auto numbers = lpn::SieveOfEratosthenes::simpleSieve(limit);
+    auto end = steady_clock::now();
+    duration<double> duration = end - start;
+    for (const auto &x: numbers) {
+        file << x << '\n';
     }
-    file << duration.count() << std::endl;
+    file << "Duration: " << duration.count() << '\n';
 }
 }

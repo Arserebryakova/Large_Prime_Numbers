@@ -5,9 +5,9 @@ namespace except {
 void react() {
     try {
         throw;
-    } catch(std::exception& e) {
+    } catch (std::exception &e) {
         // обрабатываешь известные исключения
-    } catch(...) {
+    } catch (...) {
         // обрабатываешь незивестные исключения
     }
 }

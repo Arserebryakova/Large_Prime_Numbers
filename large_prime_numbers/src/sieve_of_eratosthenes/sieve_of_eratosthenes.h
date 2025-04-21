@@ -5,7 +5,7 @@
 
 namespace lpn {
 class SieveOfEratosthenes {
-  public:
-    static std::optional<std::vector<LongInt>> generatePrimes(const LongInt &number);
+public:
+    static std::vector<LongInt> simpleSieve(const LongInt &limit);
 };
 }

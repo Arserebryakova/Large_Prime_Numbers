@@ -1,27 +1,23 @@
 #pragma once
+
 #include <vector>
 #include <optional>
-#include "utils/big_integer_arithmetics.h"
 #include "utils/LongInt.h"
+#include "utils/Status.h"
 
 namespace lpn {
-
 struct Relation {
-    LongInt x, y;
-};
-
-const std::vector<LongInt> base_default = {
-        1, 2, 3, 5, 7, 11, 13, 17,
-        19, 23, 29, 31, 41, 43, 23039,
-        112207, 141623
+    LongInt a;
+    std::vector<int> expo;
 };
 
 class Dixon {
 public:
-    static std::optional<LongInt> findFactor(const LongInt& number, std::vector<LongInt> base = base_default);
-private:
-    static LongInt integer_sqrt(const LongInt& n);
-    static std::optional<LongInt> combineRelations(const std::vector<Relation>& rels, const LongInt& n);
-};
+    struct OutData {
+        Status status;
+        std::optional<LongInt> factor;
+    };
 
-} // namespace lpn
+    static OutData findFactor(const LongInt &number, uint64_t b = 10000);
+};
+}

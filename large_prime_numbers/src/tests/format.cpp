@@ -6,6 +6,7 @@
 #include <fstream>
 #include <filesystem>
 
+
 namespace {
 std::string getCurrentTimestamp() {
     auto t = std::time(nullptr);
@@ -34,5 +35,21 @@ std::vector<lpn::LongInt> readNumbers(const std::string &filename) {
         numbers.emplace_back(numberStr);
     }
     return numbers;
+}
+
+std::string statusToString(lpn::Status s) {
+    switch (s) {
+        case lpn::Status::Composite:
+            return "Composite";
+        case lpn::Status::Prime:
+            return "Prime";
+        case lpn::Status::ProbablyComposite:
+            return "ProbablyComposite";
+        case lpn::Status::ProbablyPrime:
+            return "ProbablyPrime";
+        case lpn::Status::NoFactorFound:
+            return "NoFactorFound";
+    }
+    return "Unknown";
 }
 }
