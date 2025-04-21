@@ -24,7 +24,6 @@ std::filesystem::path buildFilename(const std::string &prefix) {
     fs::path dir = fs::path("..") / "test_results";
     std::string filename = prefix + "_" + getCurrentTimestamp() + ".csv";
     return dir / filename;
-
 }
 
 std::vector<lpn::LongInt> readNumbers(const std::string &filename) {

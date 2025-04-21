@@ -11,7 +11,7 @@ using namespace std::chrono;
 TEST_F(FactorizationTests, SievePerformance) {
     std::ofstream file(buildFilename("Sieve_of_Eratosthenes"));
     file << "Numbers" << '\n';
-    auto limit = LongInt("234567");
+    auto limit = LongInt("4294967296");
     auto start = steady_clock::now();
     auto numbers = lpn::SieveOfEratosthenes::simpleSieve(limit);
     auto end = steady_clock::now();

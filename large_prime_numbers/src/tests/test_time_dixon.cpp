@@ -10,7 +10,7 @@ using namespace std::chrono;
 
 TEST_F(FactorizationTests, DixonFactorizationPerformance) {
     std::ofstream file(buildFilename("Dixon"));
-    file << "Attempt,number,status,factor,duration" << '\n';
+    file << "Attempt,number,status,factor,duration" << std::endl;
     auto numbers = readNumbers("dixon_input");
     for (const auto &number: numbers) {
         for (int i = 1; i < 21; ++i) {
@@ -20,7 +20,7 @@ TEST_F(FactorizationTests, DixonFactorizationPerformance) {
             duration<double> duration = end - start;
             std::string status = statusToString(result.status);
             LongInt factor = result.factor.value_or(LongInt(0));
-            file << i << "," << number << "," << status << "," << factor << "," << duration.count() << '\n';
+            file << i << "," << number << "," << status << "," << factor << "," << duration.count() << std::endl;
         }
     }
 }

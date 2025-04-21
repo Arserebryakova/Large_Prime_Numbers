@@ -20,7 +20,7 @@ TEST_F(FactorizationTests, PollardTestPerformance) {
             duration<double> duration = end - start;
             std::string status = statusToString(result.status);
             LongInt factor = result.factor.value_or(LongInt(0));
-            file << i << "," << number << "," << status << "," << factor << "," << duration.count() << '\n';
+            file << i << "," << number << "," << status << "," << factor << "," << duration.count() << std::endl;
         }
     }
 }

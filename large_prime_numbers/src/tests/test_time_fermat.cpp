@@ -10,7 +10,7 @@ using namespace std::chrono;
 
 TEST_F(FactorizationTests, FermatFactorizationPerformance) {
     std::ofstream file(buildFilename("Fermat"));
-    file << "Attempt,number,status,factor,duration" << '\n';
+    file << "Attempt,number,status,factor,duration" << std::endl;
     auto numbers = readNumbers("fermat_input");
     for (const auto &number: numbers) {
         for (int i = 1; i < 21; ++i) {
@@ -20,7 +20,7 @@ TEST_F(FactorizationTests, FermatFactorizationPerformance) {
             duration<double> duration = end - start;
             std::string status = statusToString(result.status);
             LongInt factor = result.factor.value_or(LongInt(0));
-            file << i << "," << number << "," << status << "," << factor << "," << duration.count() << '\n';
+            file << i << "," << number << "," << status << "," << factor << "," << duration.count() << std::endl;
         }
     }
 }

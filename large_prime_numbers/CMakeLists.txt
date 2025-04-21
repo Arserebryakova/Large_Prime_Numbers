@@ -74,12 +74,12 @@ add_executable(lpn_tests
 
         src/tests/format.cpp
         src/tests/main_tests.cpp
-        #src/tests/test_time_trial_division.cpp
-        #src/tests/test_time_dixon.cpp
+        src/tests/test_time_trial_division.cpp
+        src/tests/test_time_dixon.cpp
         src/tests/test_time_miller-rabin.cpp
-        #src/tests/test_time_pollard.cpp
-        #src/tests/test_time_sieve.cpp
-        #src/tests/test_time_fermat.cpp
+        src/tests/test_time_pollard.cpp
+        src/tests/test_time_sieve.cpp
+        src/tests/test_time_fermat.cpp
 )
 add_test(NAME lpn_tests COMMAND lpn_tests)
 target_link_libraries(lpn_tests PRIVATE Boost::multiprecision gtest gtest_main)
